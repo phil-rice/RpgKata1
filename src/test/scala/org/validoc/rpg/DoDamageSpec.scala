@@ -1,7 +1,7 @@
 package org.validoc.rpg
 
 
-class DoDamageSpec extends RpgSpec {
+class DoDamageSpec extends RpgSpec with RpgLanguage {
 
   behavior of "DoDamage"
 
@@ -26,7 +26,7 @@ class DoDamageSpec extends RpgSpec {
   }
   it should "do damage by calling 'receive damage' and then 'kill if needed'" in {
     val doDamage = implicitly[DoDamage[String]]
-    doDamage(hitpoints)(startCharacter) shouldBe killedIfNeededCharacter
+    startCharacter.takeDamage(hitpoints) shouldBe killedIfNeededCharacter
   }
 
 }

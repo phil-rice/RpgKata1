@@ -1,6 +1,6 @@
 package org.validoc.rpg
 
-class HealingSpec extends RpgSpec {
+class HealingSpec extends RpgSpec with RpgLanguage {
   behavior of "DoDamage"
 
   val startCharacter = "start"
@@ -31,15 +31,14 @@ class HealingSpec extends RpgSpec {
   it should "do damage by calling 'receive healing' and then 'kill if needed' and then 'capMaxHitpoints' if the character is alive" in {
     implicit val isDead = new IsDeadForString(false)
 
-    val doDamage = implicitly[DoHealing[String]]
-    doDamage(hitpoints)(startCharacter) shouldBe cappedAtMaxHitpoints
+    startCharacter.heal(hitpoints) shouldBe cappedAtMaxHitpoints
   }
 
   it should "return the character if the character is dead" in {
     implicit val isDead = new IsDeadForString(true)
 
     val doDamage = implicitly[DoHealing[String]]
-    doDamage(hitpoints)(startCharacter) shouldBe startCharacter
+    startCharacter.heal(hitpoints) shouldBe startCharacter
   }
 
 }
