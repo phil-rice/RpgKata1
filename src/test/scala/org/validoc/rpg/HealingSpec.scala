@@ -31,14 +31,13 @@ class HealingSpec extends RpgSpec with RpgLanguage {
   it should "do damage by calling 'receive healing' and then 'kill if needed' and then 'capMaxHitpoints' if the character is alive" in {
     implicit val isDead = new IsDeadForString(false)
 
-    startCharacter.heal(hitpoints) shouldBe cappedAtMaxHitpoints
+    startCharacter.heal(hitpoints).waitIfNeeded shouldBe cappedAtMaxHitpoints
   }
 
   it should "return the character if the character is dead" in {
     implicit val isDead = new IsDeadForString(true)
 
-    val doDamage = implicitly[DoHealing[String]]
-    startCharacter.heal(hitpoints) shouldBe startCharacter
+    startCharacter.heal(hitpoints).waitIfNeeded shouldBe startCharacter
   }
 
 }

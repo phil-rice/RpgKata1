@@ -5,13 +5,18 @@ import org.validoc.rpg.{DoHealing, HitPoints, RpgCharacter, RpgLanguage}
 object Example {
 
   import RpgLanguage._
+  import org.validoc.rpg.Futures._
 
   implicit def toHitPoints(i: Int) = HitPoints(i)
 
   val thrud = RpgCharacter("Thrud the Barbarian")
 
   val doHealing = new DoHealing[RpgCharacter]()
-  thrud.takeDamage(10).heal(100)
+
+  thrud.takeDamage(10).await.heal(100)
+
+//  val service
+
 
   //  val change1 = damageToCharacters(char, badHealth)
   //  val change2 = damageToCharacters(change1, badHealth)

@@ -25,8 +25,7 @@ class DoDamageSpec extends RpgSpec with RpgLanguage {
     }
   }
   it should "do damage by calling 'receive damage' and then 'kill if needed'" in {
-    val doDamage = implicitly[DoDamage[String]]
-    startCharacter.takeDamage(hitpoints) shouldBe killedIfNeededCharacter
+    startCharacter.takeDamage(hitpoints).waitIfNeeded shouldBe killedIfNeededCharacter
   }
 
 }
